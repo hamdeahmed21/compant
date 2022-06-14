@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ChangePass;
+use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\HomeAboutController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Models\Multipic;
@@ -27,6 +30,9 @@ Route::get('/', function () {
 });
 Route::get('/home', function () {
     echo " This is Home page ";
+});
+Route::get('/about', function () {
+    return view('about');
 });
 
 
@@ -72,3 +78,47 @@ Route::post('/store/slider', [SliderController::class, 'StoreSlider'])->name('st
 Route::get('/edit/slider/{id}', [SliderController::class, 'editSlider'])->name('edit.Slider');
 Route::post('/store/slider/{id}', [SliderController::class, 'updateSlider'])->name('update.Slider');
 Route::get('/delete/slider/{id}', [SliderController::class, 'deleteSlider'])->name('delete.Slider');
+
+// Category Controller
+Route::get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
+Route::post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
+
+Route::get('/category/edit/{id}', [CategoryController::class, 'Edit']);
+Route::post('/category/update/{id}', [CategoryController::class, 'Update']);
+Route::get('/softdelete/category/{id}', [CategoryController::class, 'SoftDelete']);
+
+Route::get('/category/restore/{id}', [CategoryController::class, 'Restore']);
+Route::get('/pdelete/category/{id}', [CategoryController::class, 'Pdelete']);
+
+
+Route::get('/contactasd-asdf-asdfsad', [ContactController::class, 'index'])->name('ariyan');
+
+//Portfolio Page Route
+Route::get('/portfolio', [HomeAboutController::class, 'Portfolio'])->name('portfolio');
+
+
+
+
+// Amdin Contact Page Route
+Route::get('/admin/contact', [ContactController::class, 'AdminContact'])->name('admin.contact');
+Route::get('/admin/add/contact', [ContactController::class, 'AdminAddContact'])->name('add.contact');
+Route::post('/admin/store/contact', [ContactController::class, 'AdminStoreContact'])->name('store.contact');
+Route::get('/admin/message', [ContactController::class, 'AdminMessage'])->name('admin.message');
+
+
+
+
+/// Home Contact Page Route
+Route::get('/contact', [ContactController::class, 'Contact'])->name('contact');
+Route::post('/contact/form', [ContactController::class, 'ContactForm'])->name('contact.form');
+
+
+/// Chanage Password and user Profile Route
+Route::get('/user/password', [ChangePass::class, 'CPassword'])->name('change.password');
+Route::post('/password/update', [ChangePass::class, 'UpdatePassword'])->name('password.update');
+
+// User Profile
+Route::get('/user/profile', [ChangePass::class, 'PUpdate'])->name('profile.update');
+Route::post('/user/profile/update', [ChangePass::class, 'UpdateProfile'])->name('update.user.profile');
+
+
