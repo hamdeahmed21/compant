@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\HomeAboutController;
+use App\Http\Controllers\Backend\SliderController;
+use App\Models\Multipic;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 ///frontend
 Route::get('/', function () {
-    return view('frontend.index');
+    $brands = DB::table('brands')->get();
+    $abouts = DB::table('home_abouts')->first();
+    $images = Multipic::all();
+    return view('frontend.index', compact('brands','abouts','images'));
+});
+Route::get('/home', function () {
+    echo " This is Home page ";
 });
 
 
@@ -46,3 +56,19 @@ Route::get('/brand/delete/{id}', [BrandController::class, 'Delete']);
 // Multi Image Route
 Route::get('/multi/image', [BrandController::class, 'Multpic'])->name('multi.image');
 Route::post('/multi/add', [BrandController::class, 'StoreImg'])->name('store.image');
+
+// Home About All Route
+Route::get('/home/About', [HomeAboutController::class, 'HomeAbout'])->name('home.about');
+Route::get('/add/About', [HomeAboutController::class, 'AddAbout'])->name('add.about');
+Route::post('/store/About', [HomeAboutController::class, 'StoreAbout'])->name('store.about');
+Route::get('/about/edit/{id}', [HomeAboutController::class, 'EditAbout']);
+Route::post('/update/homeabout/{id}', [HomeAboutController::class, 'UpdateAbout']);
+Route::get('/about/delete/{id}', [HomeAboutController::class, 'DeleteAbout']);
+
+// Admin ALL Route
+Route::get('/home/slider', [SliderController::class, 'HomeSlider'])->name('home.slider');
+Route::get('/add/slider', [SliderController::class, 'AddSlider'])->name('add.slider');
+Route::post('/store/slider', [SliderController::class, 'StoreSlider'])->name('store.slider');
+Route::get('/edit/slider/{id}', [SliderController::class, 'editSlider'])->name('edit.Slider');
+Route::post('/store/slider/{id}', [SliderController::class, 'updateSlider'])->name('update.Slider');
+Route::get('/delete/slider/{id}', [SliderController::class, 'deleteSlider'])->name('delete.Slider');
